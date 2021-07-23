@@ -1,5 +1,3 @@
-// lru cache implementation
-
 #include <iostream>
 #include <vector>
 #include <algorithm>
@@ -16,7 +14,6 @@
 #include <cstdio>
 #include <list>
 #include <iomanip>
-#include <unordered_map>
 using namespace std;
 
 #define ll long long int
@@ -35,44 +32,44 @@ using namespace std;
 #define PNF1(a,n,m) for(int i=1;i<=n;i++){for(int j=1;j<=m;j++){cout<<a[i][j]<<' ';}cout<<endl;}cout<<endl;
 #define AS 200001
 #define mod 1000000007
-class LRUCache{
+
+class node{
 public:
-	list<pair<int,int>>key_value;
-	unordered_map<int,list<pair<int,int>>::iterator>key_iterator;
-	int maxCap;
-	int size;
-	LRUCache(int capacity){
-		maxCap = capacity;
-		size = 0;
-	}
+	int data;
+	node* left;
+	node* right;
 
-	void put(int key, int value)
-	{
-		if(maxCap<=0) return;
-		if(maxCap==size)
-		{
-			int key_to_be_removed = key_value.front().first;
-			key_value.pop_front();
-			key_iterator.erase(key_to_be_removed);
-		}
-		key_value.push_back({key,value});
-		key_iterator[key] = --key_value.end();
-		if(size<maxCap) size++;
+	node(int d){
+		this->data = d;
+		this->left = NULL;
+		this->right = NULL;
 	}
-	int get(int key)
-	{
-		if(!key_iterator.count(key)) return -1;
-		else
-		{
-			auto it = key_iterator[key];
-			key_value.erase(it);
-			key_value.push_back(*it);
-			key_iterator[key] = --key_value.end();
-			return key_value.back().second;
-		}
-	}	
-
 };
+void printTree(node* root)
+{
+	if(root==NULL)
+	{
+		return;
+	}
+	printTree(root->left);
+	cout<<root->data<<" ";
+	printTree(root->right);
+}
+node* buildTree(){
+	int d;
+	cin>>d;
+
+	if(d==-1)
+	{
+		return NULL;
+	}
+
+	node* n = new node(d);
+	n->left = buildTree();
+	n->right = buildTree();
+	return n;
+
+}
 int main()
 {
 fastIO
@@ -80,12 +77,8 @@ fastIO
 freopen("input.txt","r",stdin);
 freopen("output.txt","w",stdout);
 #endif
-LRUCache c(2);
-c.put(1,1);//1
-c.put(2,2);//1<-2
-cout<<c.get(1)<<endl;//2<-1
-c.put(3,3);//1<-3
-cout<<c.get(1)<<endl;//3<-1
-cout<<c.get(2)<<endl;//-1
+node* root = buildTree();
+printTree(root);
+
 return 0;
 }

@@ -1,5 +1,3 @@
-// lru cache implementation
-
 #include <iostream>
 #include <vector>
 #include <algorithm>
@@ -35,43 +33,59 @@ using namespace std;
 #define PNF1(a,n,m) for(int i=1;i<=n;i++){for(int j=1;j<=m;j++){cout<<a[i][j]<<' ';}cout<<endl;}cout<<endl;
 #define AS 200001
 #define mod 1000000007
-class LRUCache{
+class LFUCache{
 public:
-	list<pair<int,int>>key_value;
-	unordered_map<int,list<pair<int,int>>::iterator>key_iterator;
+	unordered_map<int,std::vector<int>> key_freq_val;
+	unordered_map<int,list<int>> freq_keyList;
+	unordered_map<int,list<int>::iterator>key_listIterator;
 	int maxCap;
 	int size;
-	LRUCache(int capacity){
-		maxCap = capacity;
-		size = 0;
-	}
+	int minFreq;
 
-	void put(int key, int value)
+	LFUCache(int capacity)
 	{
+		this->maxCap = capacity;
+		this->size = 0;
+		this->minFreq = 0;
+	}
+	void put(int key, int value){
 		if(maxCap<=0) return;
+
+		if(get(key)!=-1) key_freq_val[key][1] = value;
 		if(maxCap==size)
 		{
-			int key_to_be_removed = key_value.front().first;
-			key_value.pop_front();
-			key_iterator.erase(key_to_be_removed);
+			//remove the least frequent
+			int key_to_be_removed = freq_keyList[minFreq].front();
+			freq_keyList[minFreq].pop_front();
+			key_freq_val.erase(key_to_be_removed);
+			key_listIterator.erase(key_to_be_removed);
 		}
-		key_value.push_back({key,value});
-		key_iterator[key] = --key_value.end();
+
+		key_freq_val[key] = {value,1};
+		freq_keyList[1].push_back(key);
+		key_listIterator[key] = --freq_keyList[1].end();
+		minFreq = 1;
 		if(size<maxCap) size++;
+
 	}
 	int get(int key)
 	{
-		if(!key_iterator.count(key)) return -1;
-		else
-		{
-			auto it = key_iterator[key];
-			key_value.erase(it);
-			key_value.push_back(*it);
-			key_iterator[key] = --key_value.end();
-			return key_value.back().second;
-		}
-	}	
+		if(!key_freq_val.count(key)) return -1;
+		
+		int freq = key_freq_val[key][0];
+		int value = key_freq_val[key][1];
 
+		auto it = key_listIterator[key];
+		freq_keyList[freq].erase(it);
+		freq_keyList[freq+1].push_back(key);
+
+		key_listIterator[key] = --freq_keyList[freq+1].end();
+		if(!freq_keyList[1].size()) minFreq++;
+		return value;
+
+
+
+	}
 };
 int main()
 {
@@ -80,12 +94,18 @@ fastIO
 freopen("input.txt","r",stdin);
 freopen("output.txt","w",stdout);
 #endif
-LRUCache c(2);
-c.put(1,1);//1
-c.put(2,2);//1<-2
-cout<<c.get(1)<<endl;//2<-1
-c.put(3,3);//1<-3
-cout<<c.get(1)<<endl;//3<-1
-cout<<c.get(2)<<endl;//-1
+LFUCache c(2);
+
+
+c.put(4,2);
+c.put(5,1);
+c.put(6,1);
+cout<<c.get(1)<<endl;
+cout<<c.get(2)<<endl;
+cout<<c.get(3)<<endl;
+cout<<c.get(4)<<endl;
+cout<<c.get(5)<<endl;
+cout<<c.get(6)<<endl;
+
 return 0;
 }

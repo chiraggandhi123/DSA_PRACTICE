@@ -1,5 +1,3 @@
-// lru cache implementation
-
 #include <iostream>
 #include <vector>
 #include <algorithm>
@@ -15,8 +13,8 @@
 #include <climits>
 #include <cstdio>
 #include <list>
+#include <bits/stdc++.h>
 #include <iomanip>
-#include <unordered_map>
 using namespace std;
 
 #define ll long long int
@@ -35,44 +33,43 @@ using namespace std;
 #define PNF1(a,n,m) for(int i=1;i<=n;i++){for(int j=1;j<=m;j++){cout<<a[i][j]<<' ';}cout<<endl;}cout<<endl;
 #define AS 200001
 #define mod 1000000007
-class LRUCache{
-public:
-	list<pair<int,int>>key_value;
-	unordered_map<int,list<pair<int,int>>::iterator>key_iterator;
-	int maxCap;
-	int size;
-	LRUCache(int capacity){
-		maxCap = capacity;
-		size = 0;
-	}
-
-	void put(int key, int value)
+void formatter(string &token)
+{
+	int i = 0;
+	while(i<token.size())
 	{
-		if(maxCap<=0) return;
-		if(maxCap==size)
+		if(i==0)
 		{
-			int key_to_be_removed = key_value.front().first;
-			key_value.pop_front();
-			key_iterator.erase(key_to_be_removed);
+				if(int(token[i])>=97 && int(token[i])<=122)
+				token[i] = char(int(token[i])-32);
+		
 		}
-		key_value.push_back({key,value});
-		key_iterator[key] = --key_value.end();
-		if(size<maxCap) size++;
-	}
-	int get(int key)
-	{
-		if(!key_iterator.count(key)) return -1;
 		else
 		{
-			auto it = key_iterator[key];
-			key_value.erase(it);
-			key_value.push_back(*it);
-			key_iterator[key] = --key_value.end();
-			return key_value.back().second;
+			if(int(token[i])>=65 && int(token[i])<=90)
+			token[i] = char(int(token[i])+32);
+		
 		}
-	}	
+		i++;
+	}
+}
+string normalise(string s)
+{
+	//tokenise
+	stringstream ss(s);
+	string token;
+	std::vector<string>tokens;
+	while(getline(ss,token,' '))
+	{
+		formatter(token);
 
-};
+		tokens.push_back(token);
+	}
+	// cout<<'A'<<int('a')<<"Z"<<int('z');
+	string out = "";
+	for(auto x:tokens) out.append(x+" ") ;
+	return out;
+}
 int main()
 {
 fastIO
@@ -80,12 +77,9 @@ fastIO
 freopen("input.txt","r",stdin);
 freopen("output.txt","w",stdout);
 #endif
-LRUCache c(2);
-c.put(1,1);//1
-c.put(2,2);//1<-2
-cout<<c.get(1)<<endl;//2<-1
-c.put(3,3);//1<-3
-cout<<c.get(1)<<endl;//3<-1
-cout<<c.get(2)<<endl;//-1
+string s;
+getline(cin,s);
+string out = normalise(s);
+cout<<out<<endl;
 return 0;
 }
