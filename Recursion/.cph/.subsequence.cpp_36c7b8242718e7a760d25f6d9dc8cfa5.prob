@@ -1,0 +1,1 @@
+{"name":"Local: subsequence","url":"/home/fa064241/Desktop/Personal/CPP/DSA_PRACTICE/Recursion/subsequence.cpp","tests":[{"id":1723366875111,"input":"3\n3 1 2","output":"\n3\n1\n2\n31\n12\n32\n312"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/fa064241/Desktop/Personal/CPP/DSA_PRACTICE/Recursion/subsequence.cpp","group":"local","local":true}
