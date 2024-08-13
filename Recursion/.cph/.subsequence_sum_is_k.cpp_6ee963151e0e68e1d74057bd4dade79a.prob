@@ -1,0 +1,1 @@
+{"name":"Local: subsequence_sum_is_k","url":"/home/fa064241/Desktop/Personal/CPP/DSA_PRACTICE/Recursion/subsequence_sum_is_k.cpp","tests":[{"id":1723389966762,"input":"3\n1 2 1\n2","output":"11\n2"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/fa064241/Desktop/Personal/CPP/DSA_PRACTICE/Recursion/subsequence_sum_is_k.cpp","group":"local","local":true}

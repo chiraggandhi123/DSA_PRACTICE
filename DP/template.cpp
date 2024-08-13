@@ -47,39 +47,24 @@ typedef long long int int64;
 typedef unsigned long long int  uint64;
 
 /* clang-format on */
-void subseq(vector<int> arr, int i, int n, vector<int> sub)
+int fn(int n, vector<int> &dp)
 {
-    if (i >= n)
+    if (n <= 1)
+        return n; // base case
+    if (dp[n] != -1)
     {
-        for (int i = 0; i < sub.size(); i++)
-        {
-            cout << sub[i];
-        }
-        cout << endl;
-        return;
+        return dp[n]; // if exists
     }
-
-    // include the element
-    sub.push_back(arr[i]);
-    subseq(arr, i + 1, n, sub);
-
-    // exclude the element
-    sub.pop_back();
-    subseq(arr, i + 1, n, sub);
+    return dp[n] = fn(n - 1, dp); // recurisive case
 }
 /* Main()  function */
+
 int main()
 {
     int n;
     cin >> n;
-    vector<int> arr(n);
-
-    for (int i = 0; i < n; i++)
-    {
-        cin >> arr[i];
-    }
-    vector<int> sub;
-    subseq(arr, 0, arr.size(), sub);
+    vector<int> dp(n, -1);
+    cout << fn(n, dp);
     return 0;
 }
 /* Main() Ends Here */
