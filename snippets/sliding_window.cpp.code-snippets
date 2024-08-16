@@ -1,0 +1,33 @@
+{
+	"slidingWindow": {
+		"prefix": "slidingWindow",
+		"body": [
+			"int solve(vector<int> &v, int k)",
+			"{",
+			"    //we use sliding window with two pointer, when we need to fulfill some condition like find subarray with sum k, ",
+			"    // we need to do it for atleast k, if we found a subarray of sum > k then for all remaining it will be true",
+			"    // we need to do the same for k-1, and we can subtrace solve(k) - solve(k-1), this will remove all the overlapping subarrays and give us subarrays for k",
+			"    int s = 0, e = 0;",
+			"    int odd = 0, ans = 0;",
+			"    while (e < v.size())",
+			"    {",
+			"        //some condition to do some work",
+			"        if (v[e] % 2 == 1)",
+			"            odd++;",
+			"        while (odd > k)",
+			"        {",
+			"            //increase s pointer on some condition",
+			"            if (v[s++] % 2 == 1)",
+			"                odd--;",
+			"        }",
+			"        ans += (e - s + 1); //number of subarrays between e and s",
+			"        //increase e pointer everytime",
+			"        e++;",
+			"    }",
+			"    return ans;",
+			"};",
+			""
+		],
+		"description": ""
+	}
+}

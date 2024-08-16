@@ -1,0 +1,31 @@
+{
+	"twoPointer": {
+		"prefix": "twoPointer",
+		"body": [
+			" long long sum = 0;",
+			"        long long totalSum = 0;",
+			"        int s = 0;",
+			"        int e = 0;",
+			"        int n = nums.size();",
+			"        long long ans = 0;",
+			"        //two pointer can be used if we are dealint with sliding window",
+			"        // if a value is true for subarray s to e then it will be true for ",
+			"        // s to s+1, s+2 .... till e",
+			"        //number of subarrays from s to e will e-s+1;",
+			"        while(e < n){",
+			"           sum += nums[e];",
+			"           totalSum = sum * (e-s+1);",
+			"           while(totalSum >= k){",
+			"            sum -= nums[s++];",
+			"            totalSum = sum*(e-s+1);",
+			"           }",
+			"           if(totalSum < k){",
+			"            ans += e-s+1;",
+			"           }",
+			"           e++;",
+			"        }",
+			""
+		],
+		"description": ""
+	}
+}

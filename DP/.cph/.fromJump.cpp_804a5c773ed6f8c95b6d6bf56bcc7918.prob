@@ -1,0 +1,1 @@
+{"name":"Local: fromJump","url":"/home/fa064241/Desktop/Personal/CPP/DSA_PRACTICE/DP/fromJump.cpp","tests":[{"id":1723618600237,"input":"2\n4 2\n10 20 30 10\n3 2\n10 50 10","output":"20\n0"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/fa064241/Desktop/Personal/CPP/DSA_PRACTICE/DP/fromJump.cpp","group":"local","local":true}

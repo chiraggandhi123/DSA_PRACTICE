@@ -1,0 +1,28 @@
+{
+	"subsequence": {
+		"prefix": "subsequence",
+		"body": [
+			"void subseq(vector<int> arr, int i, int n, vector<int> sub)",
+			"{",
+			"    if (i >= n)",
+			"    {",
+			"        for (int i = 0; i < sub.size(); i++)",
+			"        {",
+			"            cout << sub[i];",
+			"        }",
+			"        cout << endl;",
+			"        return;",
+			"    }",
+			"",
+			"    // include the element",
+			"    sub.push_back(arr[i]);",
+			"    subseq(arr, i + 1, n, sub);",
+			"",
+			"    // exclude the element",
+			"    sub.pop_back();",
+			"    subseq(arr, i + 1, n, sub);",
+			"}"
+		],
+		"description": ""
+	}
+}

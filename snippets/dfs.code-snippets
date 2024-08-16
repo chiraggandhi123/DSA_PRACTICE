@@ -1,0 +1,31 @@
+{
+	"dfs": {
+		"prefix": "dfs",
+		"body": [
+			"int n, m, vis[MAX_N];",
+			"vector<int> adj[MAX_N];",
+			"",
+			"void dfs(int u) {",
+			"    vis[u] = 1;",
+			"    for (int v : adj[u]) {",
+			"        if (vis[v]) continue;",
+			"        dfs(v);",
+			"    }",
+			"}",
+			"",
+			"void solve() {",
+			"    cin >> n >> m;",
+			"    for (int i = 0; i < m; i++) {",
+			"        int u, v; cin >> u >> v;",
+			"        adj[u].push_back(v);",
+			"        adj[v].push_back(u);",
+			"    }",
+			"    for (int i = 1; i <= n; i++) {",
+			"        if (vis[i]) continue;",
+			"        dfs(i);",
+			"    }",
+			"}"
+		],
+		"description": ""
+	}
+}

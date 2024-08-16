@@ -1,0 +1,18 @@
+{
+	"dp": {
+		"prefix": "dp",
+		"body": [
+			"int fn(int n, vector<int> &dp)",
+			"{",
+			"    if (n <= 1)",
+			"        return n; // base case",
+			"    if (dp[n] != -1)",
+			"    {",
+			"        return dp[n]; // if exists",
+			"    }",
+			"    return dp[n] = fn(n - 1, dp); // recurisive case",
+			"}"
+		],
+		"description": ""
+	}
+}

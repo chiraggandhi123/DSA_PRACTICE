@@ -1,0 +1,18 @@
+{
+	"sieve": {
+		"prefix": "sieve",
+		"body": [
+			" vector<bool> v(n+1,1);",
+			"        vector<int> prime;",
+			"        v[0]=v[1]=0;",
+			"",
+			"        for(int i=2;i<=n;i++) {",
+			"            if(v[i]==1){",
+			"                prime.push_back(i);",
+			"                for(int j=i*i; j<=n; j+=i) v[j]=0;",
+			"            }",
+			"        }"
+		],
+		"description": ""
+	}
+}
