@@ -47,29 +47,44 @@ typedef long long int int64;
 typedef unsigned long long int  uint64;
 
 /* clang-format on */
+int dp[101];
 int houseRobber(vector<int> nums, int n)
 {
-    if (n <= 0)
+    if (n == 0)
+        return nums[0];
+    if (n < 0)
         return 0;
-
-    // for every ith index we will rob or not rob
-    int rob = nums[n - 1] + houseRobber(nums, n - 2); // if we rob the current house we can't rob the next house we can rob the adjacant house
-    int notRob = 0 + houseRobber(nums, n - 1);        // since we are not robbing the current house we can go to next house
-    return max(rob, notRob);
+    if (dp[n] != -1)
+        return dp[n];
+    int pick = nums[n] + houseRobber(nums, n - 2);
+    int notPick = 0 + houseRobber(nums, n - 1);
+    dp[n] = max(pick, notPick);
+    return dp[n];
 }
 /* Main()  function */
 int main()
 {
     int n;
     cin >> n;
-
     vector<int> nums(n);
+    vector<int> first;
+    vector<int> second;
     for (int i = 0; i < n; i++)
     {
         cin >> nums[i];
     }
-    cout << houseRobber(nums, n);
-    // 2 4 1 9
+    first = nums;
+    second = nums;
+    first.erase(first.begin());
+    second.pop_back();
+    memset(dp, -1, sizeof dp);
+    int x = houseRobber(first, first.size() - 1);
+    memset(dp, -1, sizeof dp);
+    int y = houseRobber(second, second.size() - 1);
+    cout << max(x, y);
     return 0;
 }
 /* Main() Ends Here */
+
+// 2 3 2
+//  2 3
